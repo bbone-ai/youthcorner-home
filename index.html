@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Youth Corner — A safe, fun place to belong</title>
+<meta name="description" content="Youth Corner is a family of small rural youth clubs across the UK. A safe, fun, and inspiring place for every young person to belong. Part of the OXIE accelerator programme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* --- Steely blue→purple gradient + bronze-yellow accent --- */
+  --accent: #c08a4e;
+  --accent-dark: #946335;
+  --cream: #f4ecd6;
+  --dark: #1d1e2e;
+  --w: rgba(255,255,255,1);
+  --w80: rgba(255,255,255,.8);
+  --w50: rgba(255,255,255,.5);
+  --w20: rgba(255,255,255,.2);
+  --w10: rgba(255,255,255,.1);
+  --w06: rgba(255,255,255,.06);
+  --gradient:
+    radial-gradient(circle at 14% 16%, rgba(64,104,150,0.55), transparent 46%),
+    radial-gradient(circle at 86% 22%, rgba(122,72,128,0.48), transparent 50%),
+    radial-gradient(circle at 50% 94%, rgba(150,116,66,0.40), transparent 55%);
+  --display: 'Quicksand', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+html, body { min-height: 100%; }
+body {
+  font-family: 'Lato', sans-serif;
+  color: var(--w);
+  background: var(--dark);
+  background-image: var(--gradient);
+  background-attachment: fixed;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* Display font for all headings */
+.hero h1, .section-title, .cta-card h2, .feature h3,
+.prog-card h4, .stat-num {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* ---------- ANIMATION ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; }
+.reveal.in { animation: fadeUp .7s cubic-bezier(.16,1,.3,1) forwards; }
+
+/* ---------- SHARED TYPE ---------- */
+.eyebrow {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--w80);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.eyebrow::before {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: var(--w50);
+}
+.eyebrow.center { justify-content: center; }
+.eyebrow.center::after {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: var(--w50);
+}
+
+.section-title {
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  margin-bottom: 18px;
+}
+.section-title span { color: var(--accent); }
+
+.lede {
+  font-size: clamp(15px, 2vw, 17px);
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.85;
+  max-width: 640px;
+}
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border-radius: 3px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity .2s, transform .2s, background .2s, border-color .2s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+  color: var(--cream);
+  border: 1px solid transparent;
+}
+.btn-primary:hover { opacity: .9; transform: translateY(-2px); }
+.btn-ghost {
+  background: var(--w10);
+  color: var(--w);
+  border: 1px solid var(--w20);
+}
+.btn-ghost:hover { background: var(--w20); transform: translateY(-2px); }
+
+/* ---------- NAV ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: rgba(42,43,44,.55);
+  border-bottom: 1px solid var(--w10);
+}
+.nav-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+}
+.nav-logo { height: 90px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: 30px; }
+.nav-links a {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--w80);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--w); }
+.nav-cta {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--cream) !important;
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+  padding: 10px 20px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.nav-cta:hover { opacity: .9; }
+.nav-cta-ghost {
+  background: var(--w10) !important;
+  color: var(--w) !important;
+  border: 1px solid var(--w20);
+}
+.nav-cta-ghost:hover { background: var(--w20) !important; opacity: 1; }
+.nav-menu-links { display: flex; align-items: center; gap: 30px; }
+@media (max-width: 760px) {
+  .nav-menu-links { display: none; }
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  text-align: center;
+  padding: clamp(64px, 12vw, 130px) 24px clamp(56px, 9vw, 100px);
+  border-bottom: 1px solid var(--w10);
+}
+.hero-logo {
+  width: 240px;
+  max-width: 62%;
+  height: auto;
+  margin: 0 auto 38px;
+}
+.hero-tag {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--w80);
+  margin-bottom: 26px;
+  line-height: 1.3;
+}
+.hero h1 {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  margin-bottom: 24px;
+}
+.hero h1 span { color: var(--accent); }
+.hero-sub {
+  font-size: clamp(15px, 2.2vw, 19px);
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-locations {
+  margin-top: 46px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--w50);
+}
+.hero-locations strong { color: var(--accent); font-weight: 600; }
+
+/* ---------- SECTION BASE ---------- */
+section { padding: clamp(56px, 9vw, 96px) 0; position: relative; }
+
+/* alternating translucent panels for clear section separation */
+section:nth-of-type(even) {
+  background: rgba(255,255,255,.035);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* chevron divider — a play on "Corner" — centred at the top of each section */
+section::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  border-right: 3px solid var(--accent);
+  border-bottom: 3px solid var(--accent);
+  transform: rotate(45deg);
+  border-radius: 0 0 4px 0;
+  opacity: .9;
+  animation: chevBob 2.6s ease-in-out infinite;
+}
+@keyframes chevBob {
+  0%, 100% { transform: rotate(45deg) translate(-2px, -2px); opacity: .55; }
+  50%      { transform: rotate(45deg) translate(2px, 2px);   opacity: .95; }
+}
+.section-head { margin-bottom: 48px; max-width: 720px; }
+.section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+.section-head.center .eyebrow { justify-content: center; }
+.section-head.center .lede { margin-left: auto; margin-right: auto; }
+
+/* ---------- WHAT WE DO ---------- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.feature {
+  background: var(--w06);
+  border: 1px solid var(--w10);
+  border-radius: 6px;
+  padding: 32px 28px;
+  transition: background .25s, border-color .25s, transform .25s;
+}
+.feature:hover {
+  background: var(--w10);
+  border-color: var(--w20);
+  transform: translateY(-4px);
+}
+.feature-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.feature h3 {
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: -.01em;
+}
+.feature p {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.75;
+}
+@media (max-width: 820px) { .feature-grid { grid-template-columns: 1fr; } }
+
+/* ---------- PROGRAMMES ---------- */
+.prog-block { margin-bottom: 44px; }
+.prog-block:last-child { margin-bottom: 0; }
+.prog-heading {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--w);
+  margin-bottom: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--w20);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.prog-heading .note {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: .04em;
+  text-transform: none;
+  color: var(--w50);
+}
+.prog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+.prog-card {
+  background: var(--w06);
+  border: 1px solid var(--w10);
+  border-radius: 5px;
+  padding: 22px 22px 24px;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.prog-card:hover {
+  background: rgba(192,138,78,.14);
+  border-color: rgba(192,138,78,.45);
+  transform: translateY(-3px);
+}
+.prog-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.prog-card p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.7;
+}
+.prog-card .rec {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--w10);
+  font-style: italic;
+  font-size: 12.5px;
+  color: var(--accent);
+  line-height: 1.65;
+}
+@media (max-width: 820px) { .prog-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .prog-grid { grid-template-columns: 1fr; } }
+
+/* ---------- ABOUT / MISSION ---------- */
+.about {
+  border-top: 1px solid var(--w10);
+  border-bottom: 1px solid var(--w10);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.about-body p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.9;
+  margin-bottom: 18px;
+}
+.about-body p:last-child { margin-bottom: 0; }
+.about-body strong { color: var(--w); font-weight: 600; }
+.person { margin-bottom: 22px; }
+.person-name {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.person-role {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.8;
+}
+.person-role em { font-style: italic; text-transform: none; }
+
+/* BARRIER CHIPS */
+.barriers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.barrier-chip {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--w);
+  background: var(--w06);
+  border: 1px solid var(--w20);
+  border-radius: 100px;
+  padding: 11px 22px;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.barrier-chip:hover {
+  background: rgba(192,138,78,.16);
+  border-color: rgba(192,138,78,.5);
+  transform: translateY(-2px);
+}
+.about-close {
+  text-align: center;
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.85;
+  max-width: 640px;
+  margin: 40px auto 32px;
+}
+.about-cta { text-align: center; }
+
+/* PULL BOX */
+.pullbox {
+  background: linear-gradient(150deg, rgba(192,138,78,.18) 0%, rgba(242,233,208,.06) 100%);
+  border: 1px solid rgba(192,138,78,.4);
+  border-radius: 8px;
+  padding: clamp(28px, 4vw, 40px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.pullbox p {
+  font-family: var(--display);
+  font-size: clamp(19px, 2.6vw, 24px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -.01em;
+  color: var(--cream);
+}
+
+/* STORY QUOTE */
+.story-quote {
+  margin: 52px auto 0;
+  max-width: 820px;
+  background: var(--w06);
+  border: 1px solid var(--w10);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: clamp(28px, 4vw, 44px);
+}
+.story-quote p {
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--w80);
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+.story-quote p:first-child::first-letter {
+  font-size: 1.1em;
+  color: var(--cream);
+}
+.story-quote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--cream);
+}
+
+/* LOCATIONS */
+.loc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.loc-card {
+  display: block;
+  text-decoration: none;
+  background: var(--w06);
+  border: 1px solid var(--w10);
+  border-radius: 8px;
+  padding: 32px 30px;
+  transition: background .25s, border-color .25s, transform .25s;
+}
+.loc-card:hover {
+  background: rgba(192,138,78,.13);
+  border-color: rgba(192,138,78,.45);
+  transform: translateY(-4px);
+}
+.loc-pin {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.loc-card h3 {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  margin-bottom: 8px;
+}
+.loc-card p {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+.loc-link {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+@media (max-width: 600px) { .loc-grid { grid-template-columns: 1fr; } }
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.stat {
+  background: var(--w06);
+  border: 1px solid var(--w10);
+  border-left: 3px solid var(--accent);
+  border-radius: 5px;
+  padding: 22px 24px;
+}
+.stat-num {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+  color: var(--cream);
+}
+.stat-label {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.6;
+}
+@media (max-width: 820px) {
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+}
+
+/* ---------- OXIE STRIP ---------- */
+.oxie-strip {
+  text-align: center;
+  padding: clamp(40px, 7vw, 64px) 0;
+}
+.oxie-strip .eyebrow { justify-content: center; }
+.oxie-strip .eyebrow::after {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: var(--w50);
+}
+.oxie-strip p {
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.85;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.oxie-strip strong { color: var(--w); font-weight: 600; }
+
+/* ---------- CTA ---------- */
+.cta {
+  text-align: center;
+  border-top: 1px solid var(--w10);
+}
+.cta-card {
+  background: linear-gradient(135deg, rgba(192,138,78,.22) 0%, rgba(242,233,208,.10) 100%);
+  border: 1px solid var(--w20);
+  border-radius: 10px;
+  padding: clamp(44px, 7vw, 72px) clamp(24px, 5vw, 56px);
+  max-width: 820px;
+  margin: 0 auto;
+}
+.cta-card h2 {
+  font-size: clamp(30px, 5.5vw, 50px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -.02em;
+  margin-bottom: 18px;
+}
+.cta-card h2 span { color: var(--accent); }
+.cta-card p {
+  font-size: clamp(15px, 2vw, 17px);
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0 auto 36px;
+}
+.cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.cta-contact {
+  margin-top: 30px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--w50);
+}
+.cta-contact a { color: var(--accent); text-decoration: none; }
+.cta-contact a:hover { text-decoration: underline; }
+
+/* ---------- FOOTER ---------- */
+.footer {
+  border-top: 1px solid var(--w10);
+  padding: 44px 24px 56px;
+  text-align: center;
+}
+.footer-logo { height: 104px; width: auto; margin: 0 auto 20px; opacity: .9; }
+.footer-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.footer-links a {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--w80);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--w); }
+.footer-meta {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--w50);
+  line-height: 1.8;
+}
+.footer-meta a { color: var(--w80); text-decoration: none; }
+.footer-meta a:hover { color: var(--w); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top"><img src="https://oxie.org.uk/wp-content/uploads/2026/05/Youth-Corner-1.png" alt="Youth Corner" class="nav-logo"></a>
+    <div class="nav-links">
+      <div class="nav-menu-links">
+        <a href="#what">What We Do</a>
+        <a href="#programmes">Provisions</a>
+        <a href="#locations">Locations</a>
+        <a href="#team">Our Story</a>
+      </div>
+      <a href="https://youthcorner.uk/registration" class="nav-cta">Register Your Child</a>
+      <a href="mailto:info@youthcorner.uk" class="nav-cta nav-cta-ghost">Get in Touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <img src="https://oxie.org.uk/wp-content/uploads/2026/05/Youth-Corner-1.png" alt="Youth Corner" class="hero-logo">
+  <div class="hero-tag">— Every community deserves a Youth Corner —</div>
+  <p class="hero-sub">
+    Youth Corner provides the operational infrastructure that makes starting and running a youth provision genuinely possible — for communities, neighbourhoods, and the people who care about them.
+  </p>
+  <div class="hero-actions">
+    <a href="#programmes" class="btn btn-primary">Choose a Provision</a>
+    <a href="#locations" class="btn btn-ghost">Our Locations</a>
+  </div>
+  <div class="hero-locations">Founded in <strong>Oxfordshire</strong> · Built to scale nationally</div>
+</header>
+
+<!-- WHAT WE DO -->
+<section id="what">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What We Do</div>
+      <h2 class="section-title">You bring the community.<br>We bring the <span>infrastructure.</span></h2>
+      <p class="lede">
+        Starting a youth club is hard. Safeguarding, compliance, planning, funding, communication — the admin alone stops most communities before they begin. Youth Corner takes that weight off, so a single passionate person or small organisation can stand up a real youth provision.
+      </p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature reveal">
+        <div class="feature-num">01</div>
+        <h3>Operational infrastructure</h3>
+        <p>Safeguarding documentation, compliance, session planning, reporting, and communications — handled through one AI-driven digital system built for lone and small-team youth workers.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-num">02</div>
+        <h3>Ready-made provisions</h3>
+        <p>Choose from proven, ready-to-run programmes matched to your space and organisation — from Art Corner to a Youth Café — so you're never starting from a blank page.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-num">03</div>
+        <h3>A family, not a franchise</h3>
+        <p>Join the Youth Corner family and share the same values, model, and support. One organisation, many locations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section id="locations">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Our Locations</div>
+      <h2 class="section-title">Find your <span>Youth Corner</span></h2>
+      <p class="lede">
+        Already up and running in Oxfordshire — with more on the way. Register at your nearest location below.
+      </p>
+    </div>
+    <div class="loc-grid">
+      <a class="loc-card reveal" href="https://youthcorner.uk/registration">
+        <div class="loc-pin">Oxfordshire</div>
+        <h3>Charlbury</h3>
+        <span class="loc-link">Register here →</span>
+      </a>
+      <a class="loc-card reveal" href="https://youthcorner.uk/registration">
+        <div class="loc-pin">Oxfordshire</div>
+        <h3>Witney</h3>
+        <span class="loc-link">Register here →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMMES -->
+<section id="programmes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">A Menu of Offerings</div>
+      <h2 class="section-title">Choose a provision to get<br>your <span>Youth Corner started</span></h2>
+      <p class="lede">
+        Think of it as a menu. Each offering is a ready-made youth provision your organisation can run — matched to the spaces and communities best placed to deliver it. Members also get discounted access to the wider OXIE family of youth innovation programmes.
+      </p>
+    </div>
+
+    <!-- YC provisions -->
+    <div class="prog-block reveal">
+      <div class="prog-heading">Youth Corner Provisions <span class="note">run by communities, supported by us</span></div>
+      <div class="prog-grid">
+        <div class="prog-card">
+          <h4>Youth Worker Apprenticeship</h4>
+          <p>For people ready to train as youth workers and lead the next generation of provision.</p>
+          <p class="rec">For ages 18+.</p>
+        </div>
+        <div class="prog-card">
+          <h4>Art Corner</h4>
+          <p>Hands-on creative arts sessions — make, experiment, and express.</p>
+          <p class="rec">Recommended for art societies and community groups looking to start a youth provision.</p>
+        </div>
+        <div class="prog-card">
+          <h4>Philosophy Corner</h4>
+          <p>Discussion and debate exploring the big ideas that matter.</p>
+          <p class="rec">Recommended for churches, universities, and colleges wanting to reach local youth.</p>
+        </div>
+        <div class="prog-card">
+          <h4>Eco-Corner</h4>
+          <p>Youth-led environmental action and practical community projects for greener neighbourhoods.</p>
+          <p class="rec">Great for nature groups and environmental volunteers.</p>
+        </div>
+        <div class="prog-card">
+          <h4>Café Corner</h4>
+          <p>A relaxed youth café run with young people — food, friends, and a place to just be.</p>
+          <p class="rec">Perfect for memorial halls and community spaces creating dedicated after-school space for youth.</p>
+        </div>
+        <div class="prog-card">
+          <h4>Youth Open Mics</h4>
+          <p>Regular open-mic nights for young performers — music, poetry, comedy, and more.</p>
+          <p class="rec">Great for venues, cafés, and community halls with a stage or social space.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- OXIE programmes -->
+    <div class="prog-block reveal">
+      <div class="prog-heading">OXIE Innovation Programmes <span class="note">part of the wider OXIE family</span></div>
+      <div class="prog-grid">
+        <div class="prog-card">
+          <h4>Critical Minds</h4>
+          <p>AI literacy and critical thinking — the skills young people need for what's next.</p>
+          <p class="rec">For schools, extra-curricular settings, and home-schooling communities.</p>
+        </div>
+        <div class="prog-card">
+          <h4>Youth Innovation Studio</h4>
+          <p>Hands-on technology and innovation workshops, from idea to build.</p>
+        </div>
+        <div class="prog-card">
+          <h4>Youth Innovation Events</h4>
+          <p>Showcases, competitions, and community events where young people present and celebrate their ideas.</p>
+        </div>
+        <div class="prog-card">
+          <h4>Drone Football</h4>
+          <p>Sport meets technology — fly drones to play the game like never before.</p>
+        </div>
+      </div>
+      <div class="about-cta" style="margin-top:32px;">
+        <a href="https://oxie.org.uk" class="btn btn-primary" target="_blank" rel="noopener">Discover OXIE</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / MISSION -->
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Our Mission</div>
+      <h2 class="section-title">Breaking barriers to<br><span>youth provision</span></h2>
+      <p class="lede">
+        Running a youth provision means wearing every hat at once. Youth Corner takes the operational weight off the people doing the work — so they can focus on young people, not paperwork.
+      </p>
+    </div>
+
+    <div class="barriers reveal">
+      <span class="barrier-chip">Safeguarding</span>
+      <span class="barrier-chip">Compliance</span>
+      <span class="barrier-chip">Finances</span>
+      <span class="barrier-chip">Fundraising</span>
+      <span class="barrier-chip">Volunteer onboarding &amp; management</span>
+      <span class="barrier-chip">Session planning</span>
+      <span class="barrier-chip">Marketing</span>
+      <span class="barrier-chip">Website</span>
+      <span class="barrier-chip">Impact reporting</span>
+      <span class="barrier-chip">Communications</span>
+    </div>
+
+    <p class="about-close reveal">
+      It's all powered by innovative, AI-driven infrastructure — to create more opportunities for young people and their champions to thrive.
+    </p>
+  </div>
+</section>
+
+<!-- MY STORY -->
+<section id="team">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our Story</div>
+      <h2 class="section-title">Why Youth Corner <span>exists</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <div class="person">
+          <div class="person-name">Bryanna Bone</div>
+          <div class="person-role">Founder &amp; CEO, OXIE (Oxford Innovative Education CIC)<br>Co-Founder, Youth Corner CIC<br>Author, <em>The Dawn of AI</em></div>
+        </div>
+        <p>
+          Bryanna founded and leads OXIE, the accelerator behind Youth Corner, and co-architects the digital infrastructure that powers it.
+        </p>
+        <p>
+          As a youth worker of 15 years and a budding edtech founder — with access to the innovative infrastructure that's accelerating tech start-ups, a sector that drew £9 billion of investment in the UK in 2024 alone — she saw the gap in the youth sector and knew exactly how to fill it.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="pullbox">
+          <p>"When we champion youth workers, communities thrive."</p>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="story-quote reveal">
+      <p>"Running even a small youth club in a rural village is like being an entrepreneur and a small business owner — finances, marketing, event planning, staff and volunteer management — and on top of all that, safeguarding, fundraising, and pastoral care for young people.</p>
+      <p>In two years, I grew a tiny youth club to over 200 young people, four programmes a week, and several community projects. I learned exactly what it takes to make a provision thrive — and exactly where youth workers are left to carry it all alone.</p>
+      <p>My story isn't unique. After speaking with youth workers across the UK, I realised the passion was never the missing piece — the infrastructure was. So I decided to build it: no more paper sign-in sheets, no more last-minute scrambles for volunteers, no more missed grant deadlines.</p>
+      <p>When we give youth workers the right tools, communities flourish. Youth Corner is how we build a youth sector that's sustainable, supported, and here to stay."</p>
+      <cite>— Bryanna Bone, Founder</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- OXIE STRIP -->
+<div class="oxie-strip">
+  <div class="wrap">
+    <div class="eyebrow center">Part of the OXIE Family</div>
+    <p>
+      Youth Corner is part of the <strong>OXIE accelerator programme</strong> — Oxford Innovative Education CIC — which backs innovative, AI-driven ventures in education. Alongside Critical Minds, Youth Innovation Studio, Youth Innovation Events, and Drone Football, we're putting creativity, technology, and opportunity within reach of every young person.
+    </p>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-card reveal">
+      <h2>Want to start a youth club? <span>We have your back.</span></h2>
+      <p>
+        Whether you're a community group, a church, a memorial hall, or one determined person — if you want to bring youth provision to your neighbourhood, we'd love to hear from you. Choose a provision to get started, or just say hello.
+      </p>
+      <div class="cta-actions">
+        <a href="#programmes" class="btn btn-primary">Choose a Provision</a>
+        <a href="mailto:info@youthcorner.uk" class="btn btn-ghost">Email Us</a>
+      </div>
+      <div class="cta-contact">
+        Questions? Email us at <a href="mailto:info@youthcorner.uk">info@youthcorner.uk</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="https://oxie.org.uk/wp-content/uploads/2026/05/Youth-Corner-1.png" alt="Youth Corner" class="footer-logo">
+  <div class="footer-links">
+    <a href="#what">What We Do</a>
+    <a href="#programmes">Provisions</a>
+    <a href="#locations">Locations</a>
+    <a href="#team">Our Story</a>
+    <a href="mailto:info@youthcorner.uk">Get in Touch</a>
+  </div>
+  <div class="footer-meta">
+    Youth Corner CIC · Part of the OXIE accelerator programme (Oxford Innovative Education CIC)<br>
+    <a href="mailto:info@youthcorner.uk">info@youthcorner.uk</a>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
